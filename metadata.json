@@ -1,0 +1,6 @@
+{
+  "name": "Wira Marketplace Enterprise Portal",
+  "description": "Enterprise event staffing portal featuring dashboard metrics, verified talent search, AI-recommended roster matching, workforce analytics, talent pipeline tracking, and batch payout authorization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
