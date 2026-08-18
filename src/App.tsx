@@ -11,6 +11,8 @@ import { TalentPipelineView } from './components/TalentPipelineView';
 import { BatchPayoutModal } from './components/BatchPayoutModal';
 import { TrainingView } from './components/TrainingView';
 import { SettingsView } from './components/SettingsView';
+import { GanttPlannerView } from './components/GanttPlannerView';
+import { AIBriefModal } from './components/AIBriefModal';
 import { CheckCircle2 } from 'lucide-react';
 
 export function App() {
@@ -21,6 +23,7 @@ export function App() {
   const [isPayoutModalOpen, setIsPayoutModalOpen] = useState<boolean>(false);
   const [globalSearchQuery, setGlobalSearchQuery] = useState<string>('');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isAIBriefOpen, setIsAIBriefOpen] = useState<boolean>(false);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -59,6 +62,12 @@ export function App() {
     }
   };
 
+  const handleCreateEventFromBrief = (event: UrgentEvent) => {
+    setEvents((prev) => [event, ...prev]);
+    setSelectedEvent(event);
+    setActiveTab('bookings');
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-row font-sans text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
       {/* Left Navigation Sidebar */}
@@ -76,6 +85,7 @@ export function App() {
           activeTab={activeTab}
           onSearchGlobal={handleSearchGlobal}
           onOpenPayoutModal={() => setIsPayoutModalOpen(true)}
+          onOpenAIBrief={() => setIsAIBriefOpen(true)}
         />
 
         {/* View Switcher */}
@@ -83,8 +93,10 @@ export function App() {
           {activeTab === 'dashboard' && (
             <DashboardView
               events={events}
+              workers={workers}
               onSelectEvent={handleSelectEvent}
               setActiveTab={setActiveTab}
+              onBookWorker={handleBookWorker}
             />
           )}
 
@@ -116,6 +128,14 @@ export function App() {
 
           {activeTab === 'training' && <TrainingView />}
 
+          {activeTab === 'planner' && (
+            <GanttPlannerView
+              events={events}
+              onSelectEvent={handleSelectEvent}
+              setActiveTab={setActiveTab}
+            />
+          )}
+
           {activeTab === 'settings' && <SettingsView />}
         </main>
       </div>
@@ -129,6 +149,13 @@ export function App() {
           setIsPayoutModalOpen(false);
           setActiveTab('dashboard');
         }}
+      />
+
+      {/* AI Brief-to-Booking Modal */}
+      <AIBriefModal
+        isOpen={isAIBriefOpen}
+        onClose={() => setIsAIBriefOpen(false)}
+        onCreateEvent={handleCreateEventFromBrief}
       />
 
       {/* Interactive Toast Notification */}

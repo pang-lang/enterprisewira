@@ -9,7 +9,8 @@ import {
   Settings, 
   LogOut, 
   Briefcase,
-  Plus
+  Plus,
+  CalendarRange
 } from 'lucide-react';
 import { NavTab } from '../types';
 
@@ -33,6 +34,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'analytics' as NavTab, label: 'Analytics', icon: TrendingUp },
     { id: 'pipeline' as NavTab, label: 'Talent Pipeline', icon: Users2 },
     { id: 'training' as NavTab, label: 'Training', icon: GraduationCap },
+    { id: 'planner' as NavTab, label: 'Workforce Planner', icon: CalendarRange },
     { id: 'settings' as NavTab, label: 'Settings', icon: Settings },
   ];
 

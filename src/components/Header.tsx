@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { Bell, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Bell, CheckCircle2, AlertCircle, Wand2 } from 'lucide-react';
 import { NavTab } from '../types';
 
 interface HeaderProps {
   activeTab: NavTab;
   onSearchGlobal?: (query: string) => void;
   onOpenPayoutModal?: () => void;
+  onOpenAIBrief?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = () => {
+export const Header: React.FC<HeaderProps> = ({ onOpenAIBrief }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([
     { id: 1, text: 'Samsung Product Launch needs 2 more crew members', time: '10m ago', urgent: true },
@@ -22,8 +23,17 @@ export const Header: React.FC<HeaderProps> = () => {
         {/* Left Side: Empty */}
         <div></div>
 
-        {/* Right Controls: Notification Icon & Profile Icon */}
-        <div className="flex items-center gap-4">
+        {/* Right Controls: AI Quick Post + Notification Icon + Profile Icon */}
+        <div className="flex items-center gap-3">
+          {/* AI Quick Post Button */}
+          <button
+            id="btn-ai-quick-post"
+            onClick={onOpenAIBrief}
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-xs font-bold rounded-xl shadow-sm shadow-purple-500/20 transition-all"
+          >
+            <Wand2 className="w-3.5 h-3.5" />
+            <span>Quick Post</span>
+          </button>
           {/* Notifications Dropdown */}
           <div className="relative">
             <button

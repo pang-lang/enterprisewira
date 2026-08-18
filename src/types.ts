@@ -5,6 +5,7 @@ export type NavTab =
   | 'analytics'
   | 'pipeline'
   | 'training'
+  | 'planner'
   | 'settings';
 
 export interface Worker {

@@ -7,18 +7,24 @@ import {
   ArrowUpRight,
   Sparkles
 } from 'lucide-react';
-import { UrgentEvent, NavTab } from '../types';
+import { UrgentEvent, NavTab, Worker } from '../types';
+import { SmartDispatchPanel } from './SmartDispatchPanel';
+import { PredictiveFillCard } from './PredictiveFillCard';
 
 interface DashboardViewProps {
   events: UrgentEvent[];
+  workers: Worker[];
   onSelectEvent: (event: UrgentEvent) => void;
   setActiveTab: (tab: NavTab) => void;
+  onBookWorker: (worker: Worker, eventName: string) => void;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
   events,
+  workers,
   onSelectEvent,
   setActiveTab,
+  onBookWorker,
 }) => {
   const [timeRange, setTimeRange] = useState<'This Month' | 'Last Month' | 'Q3 2024'>('This Month');
   const [hoveredBarIndex, setHoveredBarIndex] = useState<number | null>(null);
@@ -125,6 +131,20 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Smart Dispatch Panel */}
+      <SmartDispatchPanel
+        events={events}
+        workers={workers}
+        onBookWorker={onBookWorker}
+      />
+
+      {/* Predictive Fill Rate */}
+      <PredictiveFillCard
+        events={events}
+        onSelectEvent={onSelectEvent}
+        setActiveTab={setActiveTab}
+      />
 
       {/* Middle Grid (Spend Overview + Shift Fulfillment & Top Skills) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

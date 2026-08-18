@@ -15,6 +15,7 @@ import {
   Radio,
   Truck
 } from 'lucide-react';
+import { PostEventSentimentCard } from './PostEventSentimentCard';
 
 export const AnalyticsView: React.FC = () => {
   const [activePeriod, setActivePeriod] = useState<'7 days' | '30 days' | '3 months' | '12 months'>('30 days');
@@ -433,6 +434,8 @@ export const AnalyticsView: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* Post-Event Sentiment Analysis */}
+      <PostEventSentimentCard />
     </div>
   );
 };
